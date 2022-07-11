@@ -66,7 +66,7 @@ module ActiveSupport
 
     # Returns a <tt>Time</tt> instance that represents the time in +time_zone+.
     def time
-      @time ||= incorporate_utc_offset(@utc, utc_offset)
+      @time ||= @utc.getlocal(@time_zone)
     end
 
     # Returns a <tt>Time</tt> instance of the simultaneous time in the UTC timezone.
