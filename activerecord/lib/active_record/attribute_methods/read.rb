@@ -35,8 +35,7 @@ module ActiveRecord
       # This method exists to avoid the expensive primary_key check internally, without
       # breaking compatibility with the read_attribute API
       def _read_attribute(attr_name, &block) # :nodoc:
-        name = attr_name.to_s
-        name = self.class.attribute_aliases[name] || name
+        name = self.class.attribute_aliases[attr_name] || attr_name
 
         @attributes.fetch_value(name, &block)
       end
