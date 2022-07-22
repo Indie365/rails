@@ -546,7 +546,7 @@ module ActiveSupport
     end
 
     def marshal_load(variables)
-      initialize(variables[0].utc, ::Time.find_zone(variables[1]), variables[2].utc)
+      initialize(variables[0].utc, ::Time.find_zone(variables[1]), variables[2])
     end
 
     # respond_to_missing? is not called in some cases, such as when type conversion is
