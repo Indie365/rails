@@ -1,3 +1,10 @@
+*   Fix `_read_attribute` method to check whether an attribute is aliased or not, and
+    use the aliased attribute name if needed.
+
+    Fixes #45632.
+
+    *Tracy Loisel*
+
 *   Avoid removing a PostgreSQL extension when there are dependent objects.
 
     Previously, removing an extension also implicitly removed dependent objects. Now, this will raise an error.
