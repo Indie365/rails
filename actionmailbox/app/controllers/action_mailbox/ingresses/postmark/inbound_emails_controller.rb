@@ -49,7 +49,7 @@ module ActionMailbox
     param_encoding :create, "RawEmail", Encoding::ASCII_8BIT
 
     def create
-      ActionMailbox::InboundEmail.create_and_extract_message_id! params.require("RawEmail")
+      ActionMailbox::InboundEmail.create_and_extract_message_id! params.require_scalar("RawEmail")
     rescue ActionController::ParameterMissing => error
       logger.error <<~MESSAGE
         #{error.message}
