@@ -104,6 +104,7 @@ module ActiveRecord
     autoload :Promise
     autoload :Relation
     autoload :Result
+    autoload :TrilogyResult
     autoload :StatementCache
     autoload :TableMetadata
     autoload :Type
