@@ -229,6 +229,18 @@ module ActionDispatch # :nodoc:
     def committed?; synchronize { @committed }; end
     def sent?;      synchronize { @sent };      end
 
+    ##
+    # :method: location
+    #
+    # Location of the response.
+
+    ##
+    # :method: location=
+    #
+    # :call-seq: location=(location)
+    #
+    # Sets the location of the response
+
     # Sets the HTTP status code.
     def status=(status)
       @status = Rack::Utils.status_code(status)
