@@ -1,3 +1,8 @@
+*   Add condensed `#inspect` for `ConnectionPool`, `AbstractAdapter`, and
+    `DatabaseConfig`.
+
+    *Hartley McGuire*
+
 *   Remove warning message when running SQLite in production, but leave it unconfigured
 
     There are valid use cases for running SQLite in production, however it must be done

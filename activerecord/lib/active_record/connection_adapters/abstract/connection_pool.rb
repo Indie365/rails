@@ -173,6 +173,13 @@ module ActiveRecord
         @reaper.run
       end
 
+      def inspect # :nodoc:
+        name_field = " name=#{db_config.name.inspect}" unless db_config.name == "primary"
+        shard_field = " shard=#{@shard.inspect}" unless @shard == :default
+
+        "#<#{self.class.name} env_name=#{db_config.env_name.inspect}#{name_field} role=#{role.inspect}#{shard_field}>"
+      end
+
       def lock_thread=(lock_thread)
         if lock_thread
           @lock_thread = ActiveSupport::IsolatedExecutionState.context
