@@ -60,6 +60,8 @@ module AdapterHelper
     supports_nulls_not_distinct?
     supports_identity_columns?
     supports_virtual_columns?
+    supports_native_partitioning?
+    supports_table_inheritance?
   ].each do |method_name|
     define_method method_name do
       ActiveRecord::Base.connection.public_send(method_name)

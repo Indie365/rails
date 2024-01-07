@@ -1,3 +1,7 @@
+*   Add support for dumping table inheritance and native partitioning table definitions for PostgeSQL adapter
+
+    *Justin Talbott*
+
 *   Make `ActiveRecord::Encryption::Encryptor` agnostic of the serialization format used for encrypted data.
 
     Previously, the encryptor instance only allowed an encrypted value serialized as a `String` to be passed to the message serializer.

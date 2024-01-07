@@ -275,6 +275,14 @@ module ActiveRecord
         database_version >= 15_00_00 # >= 15.0
       end
 
+      def supports_native_partitioning? # :nodoc:
+        database_version >= 10_00_00 # >= 10.0
+      end
+
+      def supports_table_inheritance? # :nodoc:
+        database_version >= 8_00_00 # >= 8.0
+      end
+
       def index_algorithms
         { concurrently: "CONCURRENTLY" }
       end
