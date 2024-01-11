@@ -422,12 +422,12 @@ module ActiveRecord
       end
 
       def columns_hash # :nodoc:
-        load_schema
+        load_schema unless @columns_hash
         @columns_hash
       end
 
       def columns
-        load_schema
+        load_schema unless @columns
         @columns ||= columns_hash.values.freeze
       end
 
@@ -558,11 +558,10 @@ module ActiveRecord
       def load_schema # :nodoc:
         return if schema_loaded?
         @load_schema_monitor.synchronize do
-          return if @columns_hash
+          return if schema_loaded?
+          @schema_loaded = true
 
           load_schema!
-
-          @schema_loaded = true
         rescue
           reload_schema_from_cache # If the schema loading failed half way through, we must reset the state.
           raise
