@@ -48,7 +48,13 @@ happens after every keystroke, and avoids the need to use `execCommand` at all.
 
 ## Installation
 
-Run `bin/rails action_text:install` to add the Yarn package and copy over the necessary migration. Also, you need to set up Active Storage for embedded images and other attachments. Please refer to the [Active Storage Overview](active_storage_overview.html) guide.
+
+```bash
+$ bin/rails action_text:install
+$ bin/rails db:migrate
+```
+
+This adds the Yarn package, and copies over the necessary migrations. Also, you need to set up Active Storage for embedded images and other attachments. Please refer to the [Active Storage Overview](active_storage_overview.html) guide.
 
 NOTE: Action Text uses polymorphic relationships with the `action_text_rich_texts` table so that it can be shared with all models that have rich text attributes. If your models with Action Text content use UUID values for identifiers, all models that use Action Text attributes will need to use UUID values for their unique identifiers. The generated migration for Action Text will also need to be updated to specify `type: :uuid` for the `:record` `references` line.
 

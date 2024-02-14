@@ -23,7 +23,10 @@ module ActionText
         destination = Pathname(destination_root)
 
         if (application_javascript_path = destination.join("app/javascript/application.js")).exist?
-          insert_into_file application_javascript_path.to_s, %(\nimport "trix"\nimport "@rails/actiontext"\n)
+          insert_into_file application_javascript_path.to_s, <<~JS.strip
+            import "trix"
+            import "@rails/actiontext"
+          JS
         else
           say <<~INSTRUCTIONS, :green
             You must import the @rails/actiontext and trix JavaScript modules in your application entrypoint.
@@ -31,7 +34,10 @@ module ActionText
         end
 
         if (importmap_path = destination.join("config/importmap.rb")).exist?
-          append_to_file importmap_path.to_s, %(pin "trix"\npin "@rails/actiontext", to: "actiontext.esm.js"\n)
+          append_to_file importmap_path.to_s, <<~RUBY.strip
+            pin "trix"
+            pin "@rails/actiontext", to: "actiontext.esm.js"
+          RUBY
         end
       end
 
@@ -42,7 +48,9 @@ module ActionText
 
         unless destination.join("app/assets/application.css").exist?
           if (stylesheets = Dir.glob "#{destination_root}/app/assets/stylesheets/application.*.{scss,css}").length > 0
-            insert_into_file stylesheets.first.to_s, %(@import 'actiontext.css';)
+            insert_into_file stylesheets.first.to_s, <<~CSS.strip
+              @import 'actiontext.css';
+            CSS
           else
             say <<~INSTRUCTIONS, :green
               To use the Trix editor, you must require 'app/assets/stylesheets/actiontext.css' in your base stylesheet.
