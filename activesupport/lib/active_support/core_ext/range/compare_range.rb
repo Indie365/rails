@@ -11,20 +11,8 @@ module ActiveSupport
     # The native Range#=== behavior is untouched.
     #  ('a'..'f') === ('c') # => true
     #  (5..9) === (11) # => false
-    #
-    # The given range must be fully bounded, with both start and end.
-    def ===(value)
-      if value.is_a?(::Range)
-        is_backwards_op = value.exclude_end? ? :>= : :>
-        return false if value.begin && value.end && value.begin.public_send(is_backwards_op, value.end)
-        # 1...10 includes 1..9 but it does not include 1..10.
-        # 1..10 includes 1...11 but it does not include 1...12.
-        operator = exclude_end? && !value.exclude_end? ? :< : :<=
-        value_max = !exclude_end? && value.exclude_end? ? value.max : value.last
-        super(value.first) && (self.end.nil? || value_max.public_send(operator, last))
-      else
-        super
-      end
+    def ===(other)
+      compare(other) { |arg_for_comparison| super(arg_for_comparison) }
     end
 
     # Extends the default Range#include? to support range comparisons.
@@ -36,21 +24,48 @@ module ActiveSupport
     # The native Range#include? behavior is untouched.
     #  ('a'..'f').include?('c') # => true
     #  (5..9).include?(11) # => false
-    #
-    # The given range must be fully bounded, with both start and end.
-    def include?(value)
-      if value.is_a?(::Range)
-        is_backwards_op = value.exclude_end? ? :>= : :>
-        return false if value.begin && value.end && value.begin.public_send(is_backwards_op, value.end)
+    def include?(other)
+      compare(other) { |arg_for_comparison| super(arg_for_comparison) }
+    end
+
+    private
+      def compare(other, &block)
+        if other.is_a?(::Range)
+          compare_with_range(other, &block)
+        else
+          block.call(other)
+        end
+      end
+
+      def compare_with_range(other, &block)
+        return false if other_is_backwards?(other)
+
+        begin_includes_other_begin?(other, &block) && end_includes_other_end?(other)
+      end
+
+      def other_is_backwards?(other)
+        is_backwards_op = other.exclude_end? ? :>= : :>
+        other.begin && other.end && other.begin.public_send(is_backwards_op, other.end)
+      end
+
+      def begin_includes_other_begin?(other, &block)
+        # A beginless range always includes the other range's begin.
+        self.begin.nil? || block.call(other.begin)
+      end
+
+      def end_includes_other_end?(other)
+        # An endless range always includes the other range's end.
+        return true if self.end.nil?
+        # If the other range is endless, it's not included.
+        return false if other.end.nil?
+
         # 1...10 includes 1..9 but it does not include 1..10.
         # 1..10 includes 1...11 but it does not include 1...12.
-        operator = exclude_end? && !value.exclude_end? ? :< : :<=
-        value_max = !exclude_end? && value.exclude_end? ? value.max : value.last
-        super(value.first) && (self.end.nil? || value_max.public_send(operator, last))
-      else
-        super
+        # We can't simplify to `max >= other.max` since it raises TypeError for exclusive ranges with float end points.
+        operator = exclude_end? && !other.exclude_end? ? :< : :<=
+        value_max = !exclude_end? && other.exclude_end? ? other.max : other.last
+        value_max.public_send(operator, last)
       end
-    end
   end
 end
 
