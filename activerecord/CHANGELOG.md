@@ -1,3 +1,8 @@
+*   Fix callback execution order when `config.active_record.run_after_transaction_callbacks_in_order_defined = true` and
+    using `after_commit` and `after_rollback` callbacks with `prepend: true`.
+
+    *Joshua Young*
+
 *   Add dirties option to uncached
 
     This adds a `dirties` option to `ActiveRecord::Base.uncached` and
