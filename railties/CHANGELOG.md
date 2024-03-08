@@ -1,3 +1,8 @@
+*   Allow custom Thor commands to load from `lib/commands` by ensuring `lib`
+    is added to the $LOAD_PATH before looking up commands.
+
+    *Ben Sheldon*
+
 *   Set `action_mailer.default_url_options` values in `development` and `test`.
 
     Prior to this commit, new Rails applications would raise `ActionView::Template::Error`
