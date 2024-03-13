@@ -43,7 +43,7 @@ module ActiveSupport
           # Rails does more escaping than the JSON gem natively does (we
           # escape \u2028 and \u2029 and optionally >, <, & to work around
           # certain browser problems).
-          if Encoding.escape_html_entities_in_json
+          if escape_html_entities?
             json.gsub!(">", '\u003e')
             json.gsub!("<", '\u003c')
             json.gsub!("&", '\u0026')
@@ -54,6 +54,12 @@ module ActiveSupport
         end
 
         private
+          def escape_html_entities?
+            option = options[:escape_html_entities]
+            return Encoding.escape_html_entities_in_json if option.nil?
+            option
+          end
+
           # Convert an object into a "JSON-ready" representation composed of
           # primitives like Hash, Array, String, Symbol, Numeric,
           # and +true+/+false+/+nil+.
