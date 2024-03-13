@@ -1,3 +1,18 @@
+*   Fix `RangeError` in `Range#===` and `Range#include?` for endless and beginless ranges
+
+    ```ruby
+    (1..) === (2..)
+    => true
+    (2..) === (1..)
+    => false
+    (..1) === (..2)
+    => false
+    (..2) === (..1)
+    => true
+    ```
+
+    *Alex Mooney*
+
 *   Add filename support for `ActiveSupport::Logger.logger_outputs_to?`
 
     ```ruby
