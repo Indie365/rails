@@ -604,7 +604,7 @@ Sets the default time zone for the application and enables time zone awareness f
 
 Used to easily add nested custom configuration to the application config object
 
-  ```ruby
+```ruby
   config.x.payment_processing.schedule = :daily
   Rails.configuration.x.payment_processing.schedule # => :daily
   ```
@@ -927,19 +927,19 @@ Sets fallback behavior for missing translations. Here are 3 usage examples for t
 
   * You can set the option to `true` for using default locale as fallback, like so:
 
-    ```ruby
+```ruby
     config.i18n.fallbacks = true
     ```
 
   * Or you can set an array of locales as fallback, like so:
 
-    ```ruby
+```ruby
     config.i18n.fallbacks = [:tr, :en]
     ```
 
   * Or you can set different fallbacks for locales individually. For example, if you want to use `:tr` for `:az` and `:de`, `:en` for `:da` as fallbacks, you can do it, like so:
 
-    ```ruby
+```ruby
     config.i18n.fallbacks = { az: :tr, da: [:de, :en] }
     #or
     config.i18n.fallbacks.map = { az: :tr, da: [:de, :en] }
@@ -1081,7 +1081,7 @@ Controls the action to be taken when an SQL query produces a warning. The follow
 
     For example:
 
-    ```ruby
+```ruby
     config.active_record.db_warnings_action = ->(warning) do
       # Report to custom exception reporting service
       Bugsnag.notify(warning.message) do |notification|
@@ -1096,7 +1096,7 @@ Controls the action to be taken when an SQL query produces a warning. The follow
 Specifies an allowlist of warning codes and messages that will be ignored, regardless of the configured `db_warnings_action`.
 The default behavior is to report all warnings. Warnings to ignore can be specified as Strings or Regexps. For example:
 
-  ```ruby
+```ruby
   config.active_record.db_warnings_action = :raise
   # The following warnings will not be raised
   config.active_record.db_warnings_ignore = [
@@ -1390,8 +1390,7 @@ The default value depends on the `config.load_defaults` target version:
 
 #### `config.active_record.query_log_tags_enabled`
 
-Specifies whether or not to enable adapter-level query comments. Defaults to
-`false`.
+Specifies whether or not to enable adapter-level query comments. Defaults to `true` in development and `false` in all other environments.
 
 NOTE: When this is set to `true` database prepared statements will be automatically disabled.
 
@@ -1731,7 +1730,6 @@ Raises an `AbstractController::ActionNotFound` when the action specified in call
 | --------------------- | -------------------- |
 | (original)            | `false`              |
 | 7.1                   | `true` (development and test), `false` (other envs)|
-
 
 #### `config.action_controller.raise_on_open_redirects`
 
@@ -3407,7 +3405,6 @@ server {
 
 Be sure to read the [NGINX documentation](https://nginx.org/en/docs/) for the most up-to-date information.
 
-
 Rails Environment Settings
 --------------------------
 
@@ -3418,7 +3415,6 @@ Some parts of Rails can also be configured externally by supplying environment v
 * `ENV["RAILS_RELATIVE_URL_ROOT"]` is used by the routing code to recognize URLs when you [deploy your application to a subdirectory](configuring.html#deploy-to-a-subdirectory-relative-url-root).
 
 * `ENV["RAILS_CACHE_ID"]` and `ENV["RAILS_APP_VERSION"]` are used to generate expanded cache keys in Rails' caching code. This allows you to have multiple separate caches from the same application.
-
 
 Using Initializer Files
 -----------------------
