@@ -1,3 +1,11 @@
+*   Enable query log tags by default on development env
+
+    This can be used to trace troublesome SQL statements back to the application
+    code that generated these statements. It is also useful when using multiple
+    databases because the query logs can identify which database is being used.
+
+    *Matheus Richard*
+
 *   Fix sanitizer vendor configuration in 7.1 defaults.
 
     In apps where rails-html-sanitizer was not eagerly loaded, the sanitizer default could end up
