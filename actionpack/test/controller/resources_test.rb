@@ -1109,6 +1109,51 @@ class ResourcesTest < ActionController::TestCase
     end
   end
 
+  def test_invalid_only_option_for_resources
+    expected_message = "expected :only and :except to be one or more of [:index, :create, :new, :show, :update, :destroy, :edit], got [:foo, :bar]"
+    assert_raise(ArgumentError, match: expected_message) do
+      with_routing do |set|
+        set.draw do
+          resources :products, only: [:foo, :bar]
+        end
+      end
+    end
+  end
+
+  def test_invalid_only_option_for_singleton_resource
+    expected_message = "expected :only and :except to be one or more of [:show, :create, :update, :destroy, :new, :edit], got [:foo, :bar]"
+    assert_raise(ArgumentError, match: expected_message) do
+      with_routing do |set|
+        set.draw do
+          resource :products, only: [:foo, :bar]
+        end
+      end
+    end
+  end
+
+  def test_invalid_except_option_for_resources
+    expected_message = "expected :only and :except to be one or more of [:index, :create, :new, :show, :update, :destroy, :edit], got [:foo]"
+
+    assert_raise(ArgumentError, match: expected_message) do
+      with_routing do |set|
+        set.draw do
+          resources :products, except: :foo
+        end
+      end
+    end
+  end
+
+  def test_invalid_except_option_for_singleton_resource
+    expected_message = "expected :only and :except to be one or more of [:show, :create, :update, :destroy, :new, :edit], got [:foo]"
+    assert_raise(ArgumentError, match: expected_message) do
+      with_routing do |set|
+        set.draw do
+          resource :products, except: :foo
+        end
+      end
+    end
+  end
+
   private
     def with_restful_routing(*args)
       options = args.extract_options!
