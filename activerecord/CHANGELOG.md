@@ -1,3 +1,7 @@
+*   Encrypted attributes will now be filtered by exact matches by FilterParameters.
+
+    *Keshav Biswa*
+
 *   Raise an `ActiveRecord::ActiveRecordError` error when the MySQL database returns an invalid version string.
 
     *Kevin McPhillips*
