@@ -316,7 +316,11 @@ module ActionDispatch # :nodoc:
     # Returns the content of the response as a string. This contains the contents of
     # any calls to `render`.
     def body
-      @stream.body
+      if @stream.respond_to?(:to_ary)
+        @stream.to_ary.join
+      else
+        raise NotImplementedError, "The body of this response must be enumerable."
+      end
     end
 
     def write(string)
