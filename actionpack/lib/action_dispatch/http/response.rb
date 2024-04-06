@@ -329,13 +329,16 @@ module ActionDispatch # :nodoc:
 
     # Allows you to manually set or override the response body.
     def body=(body)
-      # Don't buffer things that shouldn't be buffered:
-      if body.respond_to?(:to_path) || !body.respond_to?(:to_ary)
+      if body.is_a?(String)
+        @stream = build_buffer self, [body]
+      elsif body.respond_to?(:to_path)
         @stream = body
-      else
+      elsif body.respond_to?(:to_ary)
         synchronize do
-          @stream = build_buffer self, munge_body_object(body)
+          @stream = build_buffer self, body
         end
+      else
+        @stream = body
       end
     end
 
