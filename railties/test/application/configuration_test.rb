@@ -3758,7 +3758,7 @@ module ApplicationTests
       assert_equal [ :password, :credit_card_number ], ActiveRecord::Base.filter_attributes
     end
 
-    test "encrypted attributes are added to record's filter_attributes by default" do
+    test "encrypted attributes are added to record's filter_attributes as exact matches by default" do
       app_file "app/models/post.rb", <<-RUBY
         class Post < ActiveRecord::Base
           encrypts :content
@@ -3772,7 +3772,7 @@ module ApplicationTests
 
       app "production"
 
-      assert_includes Post.filter_attributes, :content
+      assert_includes Post.filter_attributes, /^content$/
       assert_not_includes ActiveRecord::Base.filter_attributes, :content
     end
 
