@@ -1,3 +1,7 @@
+*   Raise an `ArgumentError` when invalid `:on` or `:except` options are passed into `#resouce` and `#resources`.
+
+    *Joshua Young*
+
 *   Request Forgery takes relative paths into account.
 
     *Stefan Wienert*
