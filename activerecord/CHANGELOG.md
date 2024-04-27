@@ -1,3 +1,12 @@
+*   Allow `ActiveRecord::Base#pluck` to accept hash arguments with symbol and string values.
+
+    ```ruby
+    Post.joins(:comments).pluck(:id, comments: :id)
+    Post.joins(:comments).pluck("id", "comments" => "id")
+    ```
+
+    *Joshua Young*
+
 *   Strict loading using `:n_plus_one_only` does not eagerly load child associations.
 
     With this change, child associations are no longer eagerly loaded, to
