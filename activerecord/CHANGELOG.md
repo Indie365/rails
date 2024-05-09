@@ -1,3 +1,13 @@
+*   Added option to validate which models are allowed to be associated to a polymorphic `belongs_to`.
+
+    Ex:
+    ```ruby
+    belongs_to :commentable, polymorphic: ["Post", "Comment"]
+    ```
+    This automatically adds an inclusion validator to commentable_type, to ensure that it's either Post or Comment.
+
+    *Nate Matykiewicz*
+
 *   Add a `filter` option to `in_order_of` to prioritize certain values in the sorting without filtering the results
     by these values.
 
