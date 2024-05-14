@@ -131,7 +131,6 @@ class ActiveStorage::Attachment < ActiveStorage::Record
   end
 
   protected
-
     def run_on_attached_callback(type, blob, method_suffix = "attached")
       callback_name = case type
       when :before, :after
@@ -160,7 +159,6 @@ class ActiveStorage::Attachment < ActiveStorage::Record
     end
 
   private
-
     def analyze_blob_later
       blob.analyze_later unless blob.analyzed?
     end

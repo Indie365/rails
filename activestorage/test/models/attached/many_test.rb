@@ -999,13 +999,13 @@ class ActiveStorage::ManyAttachedTest < ActiveSupport::TestCase
 
     # After attaching multiple io attachables, check the count and that the blob
     # that were used to invoke the callbacks
-    assert_equal before_attached_blobs.count, 2
+    assert_equal 2, before_attached_blobs.count
 
     filenames = before_attached_blobs.map(&:filename)
     assert_includes filenames, "funky.jpg"
     assert_includes filenames, "town.jpg"
 
-    assert_equal after_attached_blobs.count, 2
+    assert_equal 2, after_attached_blobs.count
 
     filenames = after_attached_blobs.map(&:filename)
     assert_includes filenames, "funky.jpg"

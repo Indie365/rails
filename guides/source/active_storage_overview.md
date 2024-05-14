@@ -555,8 +555,8 @@ NOTE: Since Active Storage relies on polymorphic associations, and [polymorphic 
 
 ### Callbacks
 
-Active Storage provides callbacks for when attachments are successfully uploaded to the configured service. 
-**Before** and **After** callbacks are available on both `has_one_attached` and `has_many_attached` associations. 
+Active Storage provides callbacks for when attachments are successfully uploaded to the configured service.
+**Before** and **After** callbacks are available on both `has_one_attached` and `has_many_attached` associations.
 The method name will include the attachment name and the callback type.
 _For variants, the suffix `_variant_attached` will be used._
 
@@ -569,15 +569,15 @@ class Message < ApplicationRecord
   has_many_attached :images do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
-  
+
   def before_image_attached(image_blob)
     puts "#{image_blob.filename} is about to be attached with #{image_blob.byte_size} bytes"
   end
-  
+
   def after_image_attached(image_blob)
     puts "#{image_blob.filename} has been attached with #{image_blob.byte_size} bytes"
   end
-  
+
   def before_images_variant_attached(image_thumb_blob)
     puts "#{image_thumb_blob.filename} is about to be attached with #{image_thumb_blob.byte_size} bytes"
   end
