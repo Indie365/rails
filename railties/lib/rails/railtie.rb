@@ -42,9 +42,6 @@ module Rails
   #     end
   #   end
   #
-  #   # lib/my_gem.rb
-  #   require "my_gem/railtie" if defined?(Rails::Railtie)
-  #
   # == Initializers
   #
   # To add an initialization step to the \Rails boot process from your railtie, just
