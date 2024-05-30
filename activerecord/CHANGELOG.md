@@ -1,3 +1,9 @@
+*   Replace `SQLite3::Database#busy_timeout` with `#busy_handler_timeout=`
+
+    Provides a non-GVL-blocking, fair retry interval busy handler implementation
+
+    *Stephen Margheim*
+
 *   Add `ActiveRecord::Relation#readonly?`.
 
     Reflects if the relation has been marked as readonly.
