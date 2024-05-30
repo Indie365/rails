@@ -1,3 +1,7 @@
+*   SQLite defaults to use IMMEDIATE mode transactions.
+
+    *Stephen Margheim*
+
 *   Defer route drawing to the first request, or when url_helpers are called
 
     Executes the first routes reload in middleware, or when a route set's
