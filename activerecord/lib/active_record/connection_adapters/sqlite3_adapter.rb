@@ -759,15 +759,10 @@ module ActiveRecord
         end
 
         def configure_connection
-          if @config[:timeout] && @config[:retries]
-            raise ArgumentError, "Cannot specify both timeout and retries arguments"
-          elsif @config[:timeout]
-            @raw_connection.busy_timeout(self.class.type_cast_config_to_integer(@config[:timeout]))
-          elsif @config[:retries]
-            retries = self.class.type_cast_config_to_integer(@config[:retries])
-            raw_connection.busy_handler do |count|
-              count <= retries
-            end
+          if @config[:timeout]
+            timeout = self.class.type_cast_config_to_integer(@config[:timeout])
+            raise TypeError, "timeout must be integer, not #{timeout}" unless timeout.is_a?(Integer)
+            @raw_connection.busy_handler_timeout = timeout
           end
 
           super
