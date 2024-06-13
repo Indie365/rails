@@ -27,9 +27,13 @@ module ActiveRecord
     class SQLite3Adapter < AbstractAdapter
       ADAPTER_NAME = "SQLite"
 
+      DEFAULT_CONFIG = {
+        default_transaction_mode: :immediate,
+      }
+
       class << self
         def new_client(config)
-          ::SQLite3::Database.new(config[:database].to_s, config)
+          ::SQLite3::Database.new(config[:database].to_s, DEFAULT_CONFIG.merge(config))
         rescue Errno::ENOENT => error
           if error.message.include?("No such file or directory")
             raise ActiveRecord::NoDatabaseError
