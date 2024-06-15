@@ -1,3 +1,16 @@
+*   Allow a record to access its `has_one :through` associations without querying the database
+    if the association has already been loaded.
+
+    Before the change:
+
+    ```ruby
+    member = Member.includes(current_membership: :club).first
+    member.current_membership.club # => does not query the database
+    member.club # => queries the database
+    ```
+
+    *Jay Ang*
+
 *   Optimize `Relation#exists?` when records are loaded and the relation has no conditions.
 
     This can avoid queries in some cases.
