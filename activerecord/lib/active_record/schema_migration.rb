@@ -34,10 +34,8 @@ module ActiveRecord
     end
 
     def delete_all_versions
-      @pool.with_connection do |connection|
-        versions.each do |version|
-          delete_version(version)
-        end
+      versions.each do |version|
+        delete_version(version)
       end
     end
 
